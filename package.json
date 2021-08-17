@@ -1,0 +1,20 @@
+{
+  "name": "pass_check",
+  "version": "1.0.0",
+  "description": "a password checker, designed for bitwarden support",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "a"
+  },
+  "keywords": [
+    "password",
+    "checker",
+    "bitwarden"
+  ],
+  "author": "wrac4242",
+  "license": "ISC"
+}
