@@ -1,2 +1,3 @@
 /passwords/*
 !/passwords/.gitkeeper
+/node_modules
