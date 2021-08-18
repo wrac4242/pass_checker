@@ -31,7 +31,6 @@ function vaultProcess(vault) {
 }
 
 // function returns a Promise
-//hash is not going into the promise
 function getPromise(hash) {
 	return new Promise((resolve, reject) => {
 		https.get(`https://api.pwnedpasswords.com/range/${hash}`, (response) => {
