@@ -31,10 +31,9 @@ function vaultProcess(vault) {
 }
 
 // function returns a Promise
+//hash is not going into the promise
 function getPromise(hash) {
 	return new Promise((resolve, reject) => {
-		let hash = hash;
-		console.log(`https://api.pwnedpasswords.com/range/${hash}`);
 		https.get(`https://api.pwnedpasswords.com/range/${hash}`, (response) => {
 			let chunks_of_data = [];
 
@@ -59,7 +58,6 @@ async function makeSynchronousRequest(obj) {
 	try {
 		let https_promise = getPromise(obj.fiv);
 		let response_body = await https_promise;
-		console.log(response_body);
 
 		// holds response from server that is passed when Promise is resolved
 		return response_body.includes(obj.hash)
@@ -84,12 +82,14 @@ async function checkPasswd(pass_obj) {
 
 const promiseArray = [];
 
-for (i in passwords) {
+
+for (const i of passwords) {
 	promiseArray.push(checkPasswd(i));
 }
 
 (async () => await Promise.all(promiseArray))();
 
-for (i in breachedPasswords) {
+console.log(breachedPasswords);
+for (const i of breachedPasswords) {
 	console.log(i.password);
 }
