@@ -1,3 +1,4 @@
 /passwords/*
 !/passwords/.gitkeeper
+!/passwords/test.json
 /node_modules

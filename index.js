@@ -3,7 +3,7 @@ var sha1 = require('sha1');
 const https = require('https')
 
 function store(password) {
-	let hash = sha1(password);
+	let hash = sha1(password).toUpperCase();
 	let fivChar = hash.substring(0, 5);
 	return {
 		hash: hash.substring(5),
@@ -59,7 +59,7 @@ async function makeSynchronousRequest(obj) {
 		let response_body = await https_promise;
 
 		// holds response from server that is passed when Promise is resolved
-		return response_body.includes(obj.hash)
+		return response_body.includes(obj.hash);
 	}
 	catch(error) {
 		// Promise rejected
@@ -79,16 +79,21 @@ async function checkPasswd(pass_obj) {
 	};
 }
 
-const promiseArray = [];
+async function wrapper() {
+	const promiseArray = [];
 
 
-for (const i of passwords) {
-	promiseArray.push(checkPasswd(i));
+	for (const i of passwords) {
+		promiseArray.push(checkPasswd(i));
+	}
+
+	await Promise.all(promiseArray);
+
+	console.log("breached passwords are:"); 
+
+	for (const i of breachedPasswords) {
+		console.log(i.password);
+	}
 }
 
-(async () => await Promise.all(promiseArray))();
-
-console.log(breachedPasswords);
-for (const i of breachedPasswords) {
-	console.log(i.password);
-}
+wrapper();
